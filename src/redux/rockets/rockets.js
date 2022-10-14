@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable camelcase */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const api = 'https://api.spacexdata.com/v3/rockets';
@@ -13,24 +13,22 @@ export const fetchRockets = createAsyncThunk(
   async () => {
     const response = await fetch(api);
     const data = await response.json();
-    const rocketLists = []
-    data.forEach(res => {
+    const rocketLists = [];
+    data.forEach((res) => {
       const {
-        id, flickr_images,description,rocket_name
+        id, flickr_images, description, rocket_name,
       } = res;
-     const newRocketLists = {
-      id,
-      flickr_images,
-      description,
-      rocket_name,
-      reserved: false
-     }
-      rocketLists.push(newRocketLists)
-      
+      const newRocketLists = {
+        id,
+        flickr_images,
+        description,
+        rocket_name,
+        reserved: false,
+      };
+      rocketLists.push(newRocketLists);
     });
     return rocketLists;
-    
-  } 
+  },
 );
 
 const rocketsSlice = createSlice({
@@ -42,26 +40,27 @@ const rocketsSlice = createSlice({
         ...state,
       };
       rockets.lists = rockets.lists.map((rocket) => {
-        if(rocket.id !== action.payload){
+        if (rocket.id !== action.payload) {
           return rocket;
         }
-       
-    return { ...rocket,
-       reserved: !rocket.reserved,
-      };
-      })
+
+        return {
+          ...rocket,
+          reserved: !rocket.reserved,
+        };
+      });
       return rockets;
-    }
+    },
   },
   extraReducers: {
-    [fetchRockets.pending]: (state, action) => {
+    [fetchRockets.pending]: (state) => {
       state.status = 'Loading';
     },
     [fetchRockets.fulfilled]: (state, { payload }) => {
       state.lists = payload,
       state.status = 'Success';
     },
-    [fetchRockets.rejected]: (state, action) => {
+    [fetchRockets.rejected]: (state) => {
       state.status = 'Failed';
     },
   },

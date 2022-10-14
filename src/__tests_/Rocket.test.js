@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from '../redux/configureStore';
 import TestRender from 'react-test-renderer';
+import store from '../redux/configureStore';
 import DisplayRocket from '../components/rockets/DisplayRockets';
-import Rocket from '../components/rockets/DisplayRockets';
+import Rocket from '../components/rockets/Rocket';
 
 describe('Test DisplayRocket ', () => {
   it('Test DisplayRocket component ', () => {
