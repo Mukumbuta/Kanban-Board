@@ -38,6 +38,7 @@ Rocket.propTypes = {
   rockets: PropTypes.arrayOf(
     PropTypes.shape({
       rocket_name: PropTypes.string,
+      reserved: PropTypes.bool,
     }),
   ).isRequired,
 };
